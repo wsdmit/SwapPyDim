@@ -24,13 +24,15 @@ router = w3.eth.contract(address=ROUTER_ADDRESS, abi=router_abi)
 dai = w3.eth.contract(address=DAI_ADDRESS, abi=dai_abi)
 weth = w3.eth.contract(address=WETH_ADDRESS, abi=weth_abi)
 
+value = input("How much ETH would you like to sell: ")
+
 data = router.functions.swapExactETHForTokens(
     0, 
     [WETH_ADDRESS, DAI_ADDRESS], 
     me, 
     unix_time  + 100000).buildTransaction(
         {'from': me,
-         'value': w3.toWei(0.1, 'ether'),
+         'value': w3.toWei(value, 'ether'),
          'gas': 500000, 
          'gasPrice': gas_price,
          'nonce': w3.eth.get_transaction_count(me)
